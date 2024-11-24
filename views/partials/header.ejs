@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Web Manifest -->
   <link rel="manifest" href="/site.webmanifest">
 
@@ -61,20 +61,10 @@
   </script>
 
   <style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
     .logo {
       width: 50%; /* Ajusta a largura da logo */
       height: auto; /* Mantém a proporção da imagem */
-    }
-
-    /* Navbar com fundo fixo */
-    .navbar {
-      background-color: #271491; /* Cor da navbar */
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-      padding: 10px 0; /* Ajuste do espaçamento */
     }
 
     .navbar .navbar-nav .nav-item {
@@ -86,13 +76,9 @@
     .navbar-nav .nav-link {
       color: white !important;
       font-size: 18px;
+      
       text-transform: uppercase;
       transition: color 0.3s ease;
-    }
-
-    /* Hover nos links */
-    .navbar-nav .nav-link:hover {
-      color: #FFD700 !important;
     }
 
     /* Slide Tabs - agora vai ser a navbar */
@@ -107,6 +93,7 @@
       border-radius: 50px;
       border-style: solid;
       border-color: #3c1fde;
+      font-family: 'Sora', sans-serif;
     }
 
     .tab {
