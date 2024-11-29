@@ -1,31 +1,143 @@
 <%- include('../partials/header') %>
 
-<div class="container mt-5">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <h2 class="text-center">Login</h2>
+<body>
   
-  <% if (error) { %>
-    <div class="alert alert-danger text-center"><%= error %></div>
-  <% } %>
-
-  <!-- form de login -->
+<div class="login-clean">
+  <h1>Login</h1>
   <form action="/login" method="POST">
+    <div class="illustration">
+      <img src="img/I_icone@2x.png" alt="" class="img-center">
+    </div>
+    <% if (typeof error !== 'undefined') { %>
+      <div class="alert alert-danger text-center"><%= error %></div>
+    <% } %>
     <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" name="email" required>
+      <input class="form-control" type="text" id="email" name="email" placeholder="Email" required>
     </div>
     <div class="form-group">
-      <label for="senha">Senha</label>
-      <input type="password" class="form-control" id="senha" name="senha" required>
+      <input class="form-control" type="password" id="senha" name="senha" placeholder="Password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Entrar</button>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+    </div>
+    <p class="text-center mt-3">
+      Ainda não tem uma conta?<a href="/register"> Cadastre-se</a>
+    </p>
   </form>
-
-  <!-- login com o google - ajeitar!!!! -->
-  <p class="text-center mt-3">
-    Ou faça login com o Google:
-    <a href="/auth/google" class="btn btn-danger">Login com Google</a>
-  </p>
 </div>
+</body>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+body {
+}
+
+
+h1 {
+  margin: 0px;
+  padding-bottom: 20px;
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 50px; /* Aumentando o tamanho do título */
+  color: #271491;
+  text-align: center;
+  text-decoration: bold;
+}
+
+.login-clean {
+  padding: 100px 100px; /* Aumentando o padding superior e inferior */
+  margin: 0;
+  display: left;
+  flex-direction: column;
+  min-height: 100vh; /* Garantir que o conteúdo ocupe a altura total */
+    background-image: url('img/bg4x/bg@4x.webp'); /* Substitua pelo caminho da sua imagem */
+    background-size: 40%; /* Mantém o tamanho original da imagem */
+    background-repeat: no-repeat; /* Impede que a imagem se repita */
+    background-position: left bottom; /* Posiciona no canto superior esquerdo */
+    background-color: #ffff; /* Cor de fundo como fallback */
+}
+
+.login-clean form {
+  max-width: 400px; /* Aumentando a largura do formulário */
+  width: 90%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 50px; /* Aumentando o padding interno do formulário */
+  border-radius: 8px; /* Aumentando o border-radius */
+  color: #505e6c;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15); /* Tornando a sombra um pouco mais forte */
+}
+
+.login-clean .illustration {
+  text-align: center;
+  padding: 0 0 20px;
+  font-size: 120px; /* Aumentando o tamanho do ícone */
+  color: rgb(244, 71, 107);
+}
+
+.login-clean .illustration img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100px; /* Aumentando o tamanho da imagem */
+  height: auto;
+  transform: translateX(-10px);
+}
+
+.login-clean form .form-control {
+  background: #f7f9fc;
+  border: none;
+  border-bottom: 2px solid #dfe7f1; /* Tornando a borda inferior mais espessa */
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  text-indent: 10px; /* Aumentando o indent */
+  height: 50px; /* Aumentando a altura dos campos de input */
+  font-size: 16px; /* Aumentando o tamanho da fonte nos campos */
+}
+
+.login-clean form .btn-primary {
+  background: #f4476b;
+  border: none;
+  border-radius: 8px; /* Aumentando o border-radius */
+  padding: 15px; /* Aumentando o padding do botão */
+  font-size: 18px; /* Aumentando o tamanho da fonte do botão */
+  box-shadow: none;
+  margin-top: 30px;
+  text-shadow: none;
+  outline: none !important;
+}
+
+.login-clean form .btn-primary:hover,
+.login-clean form .btn-primary:active {
+  background: #eb3b60;
+}
+
+.login-clean form .btn-primary:active {
+  transform: translateY(1px);
+}
+
+.login-clean form .forgot {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #6f7a85;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.login-clean form .forgot:hover,
+.login-clean form .forgot:active {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.btn-danger {
+  background-color: #271491;
+  border: #271491;
+  border-radius: 40px;
+}
+</style>
 
 <%- include('../partials/footer') %>

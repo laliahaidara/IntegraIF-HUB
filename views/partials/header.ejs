@@ -23,20 +23,25 @@
     <div class="container">
       <!-- Logo da navbar -->
       <a class="navbar-brand" href="/">
-        <img src="img/logo_m_icone.png" style="width: 70%;" alt="Logo do Navbar" class="logo">
+        <img src="img/logo_m_icone.png" alt="Logo do Navbar" class="logo">
       </a>
 
       <!-- Slide Tabs como Navbar -->
-      <div class="tabs">
+      <div class="navbar-nav ml-auto">
         <a href="/" class="tab" id="home-tab">Início</a>
-        <a href="/about" class="tab" id="about-tab">Sobre Nós</a>
+        <a href="/about" class="tab" id="about-tab">Sobre</a>
         <a href="/contact" class="tab" id="contact-tab">Contato</a>
         <% if (user) { %>
           <a href="/logout" class="tab" id="logout-tab">Sair</a>
         <% } else { %>
-          <a href="/auth/login" class="tab" id="login-tab">Entrar</a>
+          <a href="/login" class="tab" id="login-tab">Entrar</a>
         <% } %>
         <div class="cursor" id="cursor"></div>
+      </div>
+      <div>
+        <a href="/perfil">
+          <img src="img/profile-user.png" alt="Ícone de perfil" class="perfil">
+        </a>
       </div>
     </div>
   </nav>
@@ -60,73 +65,82 @@
     });
   </script>
 
-  <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-    .logo {
-      width: 50%; /* Ajusta a largura da logo */
-      height: auto; /* Mantém a proporção da imagem */
-    }
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+  
+  /* Padronizando a largura da logo */
+  .logo {
+    width: 150px; /* Define uma largura fixa para a logo */
+    height: auto; /* Mantém a proporção da imagem */
+    margin-left: -100px; /* Move a logo para a esquerda */
+  }
 
-    .navbar .navbar-nav .nav-item {
-      margin-left: 20px;
-      margin-right: 20px;
-    }
+  /* Estilo dos links da navbar */
+  .navbar-nav .nav-link {
+    color: #333 !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
 
-    /* Estilo dos links */
-    .navbar-nav .nav-link {
-      color: white !important;
-      font-size: 18px;
-      
-      text-transform: uppercase;
-      transition: color 0.3s ease;
-    }
+  .navbar-nav .nav-link:hover {
+    color: #d9043d; /* Cor do link quando passar o mouse */
+    text-decoration: none;
+  }
 
-    /* Slide Tabs - agora vai ser a navbar */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      width: 50%; /* Ajuste o tamanho das abas */
-      background-color: #fff;
-      padding: 10px 0;
-      border-radius: 50px;
-      border-style: solid;
-      border-color: #3c1fde;
-      font-family: 'Sora', sans-serif;
-    }
+  /* Slide Tabs */
+  .tab {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #271491;
+    background-color: transparent;
+    position: relative;
+    transition: all 0.3s ease;
+    font-family: 'Sora', sans-serif;
+  }
 
-    .tab {
-      cursor: pointer;
-      text-transform: uppercase;
-      font-size: 16px;
-      padding: 10px 20px;
-      color: #271491;
-      background-color: transparent;
-      position: relative;
-      transition: all 0.3s ease;
-    }
+  .tab:hover {
+    color: #d9043d;
+    text-decoration: none;
+  }
 
-    .tab:hover {
-      color: #d9043d;
-    }
+  /* Cursor de destaque */
+  .cursor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: #d9043d;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
 
-    /* Cursor que segue o mouse */
-    .cursor {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 5px;
-      background-color: #d9043d;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-    }
+  /* Ajuste do ícone de perfil */
+  .perfil {
+    width: 40px;
+    height: 40px;
+  }
 
-    /* Conteúdo da página */
-    .content {
-      margin-top: 80px; /* Espaço para não sobrepor a navbar */
-    }
-  </style>
+  /* Ajuste geral da navbar */
+  .navbar {
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Para garantir que o conteúdo da página não sobreponha a navbar */
+  .content {
+    margin-top: 80px; /* Ajusta o espaço para a navbar */
+  }
+
+  /* Estilo para a parte ativa da navbar */
+  .navbar-nav .active {
+    color: #d9043d !important;
+  }
+</style>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

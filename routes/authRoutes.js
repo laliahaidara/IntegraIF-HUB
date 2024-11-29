@@ -1,110 +1,62 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const EmpresaJunior = require('../models/EmpresaJunior');
+const userModel = require('../models/userModel');
+const { clearParserCache } = require('mysql2');
 const router = express.Router();
 
-// rota POST para cadastrar a ej
-router.post('/cadastro', async (req, res) => {
-  const { CNPJ, Nome, Status, DataCriada, Email, Senha } = req.body;
-
-  try {
-    // verifica se já existe uma ej com o mesmo cnpj
-    const existente = await EmpresaJunior.findOne({ where: { CNPJ } });
-    if (existente) {
-      return res.render('auth/register', { 
-        error: 'Já existe uma Empresa Júnior registrada com este CNPJ.' 
-      });
-    }
-
-    // gera o hash da senha (criptografa)
-    const salt = await bcrypt.genSalt(10);
-    const senhaCriptografada = await bcrypt.hash(Senha, salt);
-
-    // cria a nova ej no banco de dados
-    await EmpresaJunior.create({
-      CNPJ,
-      Nome,
-      Status,
-      DataCriada,
-      Email,
-      Senha: senhaCriptografada,
-    });
-
-    // redireciona p pag de login dps do cadastro
-    res.status(201).redirect('/login');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Erro ao cadastrar Empresa Junior.');
-  }
-});
-
-// rota POST p registro no formato `/register`
+// Rota POST para registro no formato `/register`
 router.post('/register', async (req, res) => {
-  const { CNPJ, Nome, Email, Senha, DataCriada } = req.body;
+  const { cnpj, nome, email, senha } = req.body;
 
   try {
-    // valida se o cnpj ou email já foi cadastrado
-    const existente = await EmpresaJunior.findOne({ where: { CNPJ } });
+    // Vazlida se o cnpj ou o Email já foram cadastrados
+    const existente = await userModel.findOne({ where: { cnpj } });
     if (existente) {
       return res.render('auth/register', { 
-        error: 'Já existe uma Empresa Júnior registrada com este CNPJ.' 
+        error: 'Já existe uma Empresa Júnior registrada com este cnpj.' 
       });
     }
 
-    const existenteEmail = await EmpresaJunior.findOne({ where: { Email } });
+    const existenteEmail = await userModel.findOne({ where: { email } });
     if (existenteEmail) {
       return res.render('auth/register', { 
-        error: 'Já existe uma Empresa Júnior registrada com este email.' 
+        error: 'Já existe uma Empresa Júnior registrada com este Email.' 
       });
     }
 
-    // gera o hash da senha
+    // Gera o hash da senha
     const salt = await bcrypt.genSalt(10);
-    const senhaCriptografada = await bcrypt.hash(Senha, salt);
+    const senhaCriptografada = await bcrypt.hash(senha, salt);
 
-    // cria o registro
-    await EmpresaJunior.create({
-      CNPJ,
-      Nome,
-      Status: true, // define status como ativo por padrão
-      DataCriada,
-      Email,
-      Senha: senhaCriptografada,
+    // Cria o registro no banco de dados
+    await userModel.create({
+      cnpj,
+      nome,
+      email,
+      senha: senhaCriptografada,
     });
 
-    // redireciona p pag de login dps do registro
+    // Redireciona para a página de login após o registro
     res.status(201).redirect('/login');
+    return;
   } catch (error) {
     console.error(error);
     res.status(500).send('Erro ao registrar Empresa Júnior.');
   }
 });
 
-// rota POST p login de ej
-router.post('/login', async (req, res) => {
-  const { Email, Senha } = req.body;
+// Rota POST para login de Empresa Júnior
 
-  try {
-    // busca a ej pelo email
-    const ej = await EmpresaJunior.findOne({ where: { Email } });
 
-    if (!ej) {
-      return res.render('auth/login', { error: 'Email ou senha incorretos.' });
-    }
-
-    // valida a senha
-    const senhaValida = await bcrypt.compare(Senha, ej.Senha);
-
-    if (senhaValida) {
-      req.session.empresaLogada = ej.CNPJ; // salva o cnpj na sessão
-      res.redirect('/perfil'); // redireciona p pag de perfil
-    } else {
-      res.render('auth/login', { error: 'Email ou senha incorretos.' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Erro ao processar login.');
+// Rota para renderizar a página de perfil
+router.get('/perfil', (req, res) => {
+  // Verifica se o usuário está logado
+  if (!req.session.user) {
+    return res.redirect('/auth/login');
   }
+
+  // Passa os dados do usuário para a view
+  res.render('auth/perfil', { user: req.session.user });
 });
 
 module.exports = router;

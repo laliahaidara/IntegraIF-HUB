@@ -6,7 +6,7 @@ const contactController = require('./controllers/contactController');
 
 const router = express.Router();
 
-router.get('/login', authController.login);
+router.get('auth/login', authController.login);
 router.get('/auth/google', authController.googleAuth);
 router.get('/auth/google/callback', authController.googleAuthCallback);
 router.get('/logout', authController.logout);
